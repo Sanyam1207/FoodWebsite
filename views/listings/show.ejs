@@ -1,0 +1,163 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="flex flex-col justify-center items-center min-h-screen m-4 p-1">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-lg w-full">
+            <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    <%= listing.title %>
+                </h2>
+                <p class="text-gray-700 leading-tight mb-4">
+                    <%= listing.description %>
+                </p>
+                <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <a href="/listings/<%= listing._id %>/edit">
+                                <button type="button"
+                                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Edit
+                                    Meal</button>
+                            </a>
+                            <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+                                <button type="submit"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete
+                                    Meal</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+        <% if(currUser) { %>
+            <div class="flex justify-between w-full max-w-6xl mt-8">
+                <form action="/listings/<%= listing._id %>/reviews" method="post" id="review-form" class="w-1/2">
+
+                    <div
+                        class="relative m-5 h-40 w-full select-none rounded-lg border border-gray-100 p-6 shadow-lg">
+                        <p class="mt-3">What Do You Rate The Experience Ordering With Us ?</p>
+
+                        <fieldset class="starability-slot">
+                            <legend><br /></legend>
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[stars]" value="0"
+                                checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[stars]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[stars]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[stars]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[stars]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[stars]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                    </div>
+
+                    <div
+                        class="relative m-5 h-60 w-full select-none rounded-lg border border-gray-100 p-6 shadow-lg">
+                        <p class="text-sm font-black">Leave A Detailed Review Here !!</p>
+                        <br />
+
+                        <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                            name="review[customer_review]">
+                            <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800"
+                                name="review[customer_review]">
+                                <label for="comment" class="sr-only">Your comment</label>
+                                <textarea id="comment" rows="4"
+                                    class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                                    placeholder="Write a comment..." required
+                                    name="review[customer_review]"></textarea>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                <button type="submit"
+                                    class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                    Post Review
+                                </button>
+                            </div>
+                        </div>
+                        <p class="ms-auto text-xs text-gray-500 dark:text-gray-400">Remember, contributions to this
+                            topic should follow
+                            our <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Community
+                                Guidelines</a>.
+                        </p>
+
+                </form>
+            </div>
+            <% } %>
+
+                <div class="relative m-20 h-96 w-full select-none rounded-lg border border-gray-100 p-8 shadow-lg scrollbar"
+                    style="height: 26.2rem; margin-left: 4rem; margin-top: 1.2rem;" id="scrollbar2">
+                    <br />
+
+                    <h3 class="font-os text-lg font-bold">Comments</h3>
+                    <br />
+                    <hr />
+
+                    <% if(listing.reviews.length===0) { %>
+                        <div class="flex justify-center p-8">
+                            <div
+                                class="flex w-64 items-center rounded-md shadow-sm mb-4 bg-slate-50 p-4 text-slate-900">
+                                <div class="w-auto">
+                                    <p>No one reviewed it so far</p><br />
+                                    <p>Be the one to help others !!</p>
+                                </div>
+
+                            </div>
+                            <% } else { %>
+                                <% for (let review of listing.reviews) { %>
+                                    <div class="flex mt-4">
+                                        <div class="ml-3">
+                                            <div class="font-medium text-purple-800">
+                                                <%= review.author.username || 'Anonymous' %>
+                                            </div>
+                                            <div class="text-gray-600">Posted on <%= new
+                                                    Date(review.createdAt).toLocaleString() %>
+                                            </div>
+                                            <p class="starability-result" data-rating="<%= review.stars %>"></p>
+                                            <div class="mt-2 text-purple-800">
+                                                <%= review.customer_review %>
+                                            </div>
+                                            <br />
+                                            <form
+                                                action='/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE'
+                                                method="POST"> <button
+                                                    class="select-none rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                    type="submit">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <hr />
+                                    <% } %>
+                                        <% } %>
+
+
+
+
+                        </div>
+                </div>
+                <div class="relative m-20 h-96 w-full select-none rounded-lg border border-gray-100 p-8 shadow-lg">
+                    <h3>Where You'll Be !!</h3>
+                    <div id="map"></div>
+
+                </div>
+
+
+    </div>
+    <script>
+        // TO MAKE THE MAP APPEAR YOU MUST
+        // ADD YOUR ACCESS TOKEN FROM
+        // https://account.mapbox.com
+        let mapToken = "<%= process.env.MAP_TOKEN %>";
+        console.log(mapToken);
+        mapboxgl.accessToken = mapToken;
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            center: [-74.5, 40], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 9 // starting zoom
+        });
+    </script>
+</body>

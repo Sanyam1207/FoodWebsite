@@ -1,0 +1,179 @@
+<% layout("/layouts/boilerplate") %>
+    <!-- <body>
+    <h3>Edit Your Dish</h3>
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+        <input type="text" name="listing[title]" id="" value="<%= listing.title %>"> 
+        <br>
+        <textarea name="listing[description]" id=""> <%= listing.description %></textarea>
+        <input type="text" name="listing[image]" id="" value="<%= listing.image %>">
+        <input type="number" name="listing[price]" id="" value="<%= listing.price %>"> 
+        <input type="text" name="listing[restaurantName]" id="" value="<%= listing.restaurantName %>"> 
+        <button>Submit</button>
+    </form>
+
+</body> -->
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+
+    <body class="z-0">
+        <div class="bg-white border-4 rounded-lg shadow relative m-10">
+
+            <div class="flex items-start justify-between p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold">
+                    Edit Your Dish !!
+                </h3>
+                <!-- <button type="button"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                data-modal-toggle="product-modal">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button> -->
+            </div>
+
+            <div class="p-6 space-y-6">
+
+                <form action="/listings/<%=listing._id %>/?_method=PUT" method="post" enctype="multipart/form-data">
+
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="product-name" class="text-sm font-medium text-gray-900 block mb-2">Dish
+                                Name</label>
+                            <input type="text" name="listing[title]" id="product-name"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="Enter Dish Name”" required="" value="<%= listing.title %>">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Restaurant
+                                Name</label>
+                            <input type="text" name="listing[restaurantName]" id="category"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="Restaurant Name" required="" value="<%= listing.restaurantName %>">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price Of The
+                                Meal</label>
+                            <input type="number" name="listing[price]" id="price"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="Price" required="" value="<%= listing.price %>">
+                        </div>
+
+                        <div class="flex items-center space-x-6 mt-4 w-auto">
+                            <label class="block">
+                                <span class="sr-only">Choose profile photo</span>
+                                <input type="file" onchange="loadFile(event)" class="block w-full text-sm text-slate-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-sm file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-gray-50 file:text-gray-900
+                            hover:file:text-gray-800 cursor-pointer
+                          "  name="listing[image]"/>
+                            </label>
+
+
+                        </div>
+
+                        <div class="felx flex-col">
+                            <div class="m-1">
+                                <p for="price" class="text-xs font-medium text-gray-900">Original Listing Image</p>
+                            </div>
+
+                            <div class="flex overflow-x-auto w-52 no-scrollbar m-1">
+                                <div
+                                    class="relative flex-shrink-0 w-12 h-12 m-2 overflow-hidden text-gray-700 transition-opacity bg-white shadow-md cursor-pointer rounded-xl bg-clip-border hover:opacity-90" data-dialog-target="image-dialog">
+                                    <img alt="nature" class="object-cover w-full h-full"
+                                        src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80" />
+                                </div>
+                                <div data-dialog-backdrop="image-dialog" data-dialog-backdrop-close="true"
+                                    class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+                                    <div class="relative m-4 w-3/4 min-w-[75%] max-w-[75%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl"
+                                        role="dialog" data-dialog="image-dialog">
+                                        <div
+                                            class="relative p-0 font-sans text-base antialiased font-light leading-relaxed border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 text-blue-gray-500">
+                                            <img alt="nature" class="h-[48rem] w-full object-cover object-center"
+                                                src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2717&amp;q=80" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div
+                                    class="relative flex-shrink-0 w-12 h-12 m-2 overflow-hidden text-gray-700 transition-opacity bg-white shadow-md cursor-pointer rounded-xl bg-clip-border hover:opacity-90" data-dialog-target="image-dialog">
+                                    <img alt="nature" class="object-cover w-full h-full"
+                                        src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80" />
+                                </div>
+                                <div
+                                    class="relative flex-shrink-0 w-12 h-12 m-2 overflow-hidden text-gray-700 transition-opacity bg-white shadow-md cursor-pointer rounded-xl bg-clip-border hover:opacity-90" data-dialog-target="image-dialog">
+                                    <img alt="nature" class="object-cover w-full h-full"
+                                        src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80" />
+                                </div>
+                                <div
+                                    class="relative flex-shrink-0 w-12 h-12 m-2 overflow-hidden text-gray-700 transition-opacity bg-white shadow-md cursor-pointer rounded-xl bg-clip-border hover:opacity-90" data-dialog-target="image-dialog">
+                                    <img alt="nature" class="object-cover w-full h-full"
+                                        src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="col-span-full">
+                            <label for="product-details" class="text-sm font-medium text-gray-900 block mb-2">Describe
+                                Your Dish</label>
+                            <textarea id="product-details" rows="6"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4"
+                                placeholder="Yummy !!" name="listing[description]"
+                                value="<%= listing.description %>"><%= listing.description %></textarea>
+                        </div>
+                    </div>
+
+            </div>
+
+            <div class="p-6 border-t border-gray-200 rounded-b">
+                <button
+                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Confirm
+                    Editing Meal</button>
+            </div>
+
+            </form>
+
+        </div>
+
+    </body>
+    <script src="node_modules/@material-tailwind/html@latest/scripts/dialog.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
+    <script>
+        var loadFile = function (event) {
+
+            var input = event.target;
+            var file = input.files[0];
+            var type = file.type;
+
+            var output = document.getElementById('preview_img');
+
+
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>

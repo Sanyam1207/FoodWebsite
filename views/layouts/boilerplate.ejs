@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Guy</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/ratings.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
+</head>
+
+    <%- include("../includes/navbar.ejs") %>
+    
+    <!-- <h1 class="text-amber-200">This is my food ordering website !!!</h1> -->
+
+    <div class="container">
+        <%- include("../includes/flash.ejs") %>
+        <%- body %>
+    </div>
+
+
+    <%- include("../includes/footer.ejs") %>
+
+    <script src="https://kit.fontawesome.com/dd505f42cd.js" crossorigin="anonymous"></script>
+</html>
