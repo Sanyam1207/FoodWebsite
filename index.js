@@ -39,7 +39,6 @@ main().then(() => {
 });
 
 async function main() {
-    await mongoose.connect(dbUr);
 };
 
 app.set("view engine", "ejs");
